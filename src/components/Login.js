@@ -101,7 +101,7 @@ const Login = () => {
               class='peer w-full border border-gray-300 px-2 pt-5 pb-2 bg-gray-800 focus:outline-none focus:border-white rounded'
             />
             <label
-              for='fullName'
+              htmlFor='fullName'
               class='absolute left-2 top-1 text-white text-xs transition-all 
            peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base 
            peer-placeholder-shown:text-white 
@@ -110,17 +110,17 @@ const Login = () => {
             </label>
           </div>
         )}
-        <div class='relative my-4'>
+        <div className='relative my-4'>
           <input
             type='text'
             id='email'
             ref={email}
             placeholder=' '
-            class='peer w-full border border-gray-300 px-2 pt-5 pb-2 bg-gray-800 focus:outline-none focus:border-white rounded autofill:bg-gray-800'
+            className='peer w-full border border-gray-300 px-2 pt-5 pb-2 bg-gray-800 focus:outline-none focus:border-white rounded autofill:bg-gray-800'
           />
           <label
-            for='Email or Phone Number'
-            class='absolute left-2 top-1 text-white text-xs transition-all 
+            htmlFor='Email or Phone Number'
+            className='absolute left-2 top-1 text-white text-xs transition-all 
            peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base 
            peer-placeholder-shown:text-white 
            peer-focus:top-1 peer-focus:text-[12px] peer-focus:text-white'>
@@ -128,17 +128,17 @@ const Login = () => {
           </label>
           {emailErrMsg && <p className='text-red-500 text-sm'>{emailErrMsg}</p>}
         </div>
-        <div class='relative'>
+        <div className='relative'>
           <input
             type='password'
             id='password'
             ref={password}
             placeholder=' '
-            class='peer w-full border border-gray-300 px-2 pt-5 pb-2 bg-gray-800 focus:outline-none focus:border-white rounded'
+            className='peer w-full border border-gray-300 px-2 pt-5 pb-2 bg-gray-800 focus:outline-none focus:border-white rounded'
           />
           <label
-            for='password'
-            class='absolute left-2 top-1 text-white text-xs transition-all 
+            htmlFor='password'
+            className='absolute left-2 top-1 text-white text-xs transition-all 
            peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base 
            peer-placeholder-shown:text-white 
            peer-focus:top-1 peer-focus:text-[12px] peer-focus:text-white'>
@@ -149,16 +149,16 @@ const Login = () => {
           )}
         </div>
         {!isSignInForm && (
-          <div class='relative my-6'>
+          <div className='relative my-6'>
             <input
               type='password'
               id='confirm-password'
               placeholder=' '
-              class='peer w-full border border-gray-300 px-2 pt-5 pb-2 bg-gray-800 focus:outline-none focus:border-white rounded'
+              className='peer w-full border border-gray-300 px-2 pt-5 pb-2 bg-gray-800 focus:outline-none focus:border-white rounded'
             />
             <label
-              for='confirm-password'
-              class='absolute left-2 top-1 text-white text-xs transition-all 
+              htmlFor='confirm-password'
+              className='absolute left-2 top-1 text-white text-xs transition-all 
            peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base 
            peer-placeholder-shown:text-white 
            peer-focus:top-1 peer-focus:text-[12px] peer-focus:text-white'>
@@ -172,7 +172,7 @@ const Login = () => {
           onClick={validateForm}>
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        {errmsg && <p className='text-lg font-bold'>{errmsg}</p>}
+        {errmsg && <p className='text-lg font-medium text-red-500'>{errmsg}</p>}
 
         {isSignInForm && (
           <div>
@@ -182,7 +182,7 @@ const Login = () => {
               className='my-6 bg-slate-700 p-2 rounded-md w-full'>
               Use a Sign-in code
             </button>
-            <div class='flex items-center justify-center'>
+            <div className='flex items-center justify-center'>
               <Link className='flex items-center underline'>
                 Forgot Password?
               </Link>
