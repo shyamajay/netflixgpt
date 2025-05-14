@@ -2,21 +2,79 @@ import Header from "./Header";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { checkData } from "../utils/validate.js";
-
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebasesetup.js";
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [emailErrMsg, setEmailErrMsg] = useState(null);
   const [passwordErrMsg, setPasswordErrMsg] = useState(null);
+  const [errmsg, setErrmsg] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const toggleIsForm = () => {
     setIsSignInForm(!isSignInForm);
+    if (email.current) {
+      email.current.value = null;
+    }
+
+    if (password.current) {
+      password.current.value = null;
+    }
+
+    setEmailErrMsg(null);
+    setPasswordErrMsg(null);
   };
   const validateForm = () => {
     const errorMsg = checkData(email.current.value, password.current.value);
-    setEmailErrMsg(errorMsg.emailError);
-    setPasswordErrMsg(errorMsg.passwordError);
+    console.log(errorMsg);
+    if (errorMsg.emailError || errorMsg.passwordError) {
+      setEmailErrMsg(errorMsg.emailError);
+      setPasswordErrMsg(errorMsg.passwordError);
+    } else {
+      if (!isSignInForm) {
+        //Sign up form logic
+        createUserWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            const user = userCredential.user;
+            setErrmsg(null);
+            console.log("User signed in successfully");
+            console.log(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode + " " + errorMessage);
+            setErrmsg("Invalid Login credentials");
+          });
+      } else {
+        //Sign in form logic
+        signInWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            const user = userCredential.user;
+            setErrmsg(null);
+            console.log("User signed in successfully");
+            console.log(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode + " " + errorMessage);
+            setErrmsg("Invalid Login credentials");
+          });
+      }
+    }
   };
   return (
     <div className='relative'>
@@ -114,7 +172,8 @@ const Login = () => {
           onClick={validateForm}>
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        {/* <p className='text-lg font-bold'>{errormsg}</p> */}
+        {errmsg && <p className='text-lg font-bold'>{errmsg}</p>}
+
         {isSignInForm && (
           <div>
             <h2 className='text-center text-gray-400'>OR</h2>
